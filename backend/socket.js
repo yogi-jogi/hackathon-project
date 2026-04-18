@@ -10,7 +10,8 @@ module.exports = {
           const allowed = [
             "http://localhost:5173",
             "http://localhost:5174",
-            "http://localhost:3000"
+            "http://localhost:3000",
+            "https://hackathon-project-lemon-one.vercel.app"
           ];
           if (!origin || allowed.includes(origin)) {
             callback(null, true);
@@ -21,6 +22,14 @@ module.exports = {
         credentials: true,
       },
     });
+
+    io.on("connection", (socket) => {
+      console.log(`🔌 [Socket.io] Client connected: ${socket.id}`);
+      socket.on("disconnect", (reason) => {
+        console.log(`🔌 [Socket.io] Client disconnected: ${socket.id} - Reason: ${reason}`);
+      });
+    });
+
     return io;
   },
   getIO: () => {

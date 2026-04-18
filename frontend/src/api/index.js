@@ -24,14 +24,17 @@ async function request(path, options = {}) {
     }
   }
 
+  console.log(`📡 [API Request] ${options.method || 'GET'} ${BASE}${path}`);
   const res = await fetch(`${BASE}${path}`, { ...options, headers });
   const data = await res.json().catch(() => ({}));
 
   if (!res.ok) {
+    console.error(`❌ [API Error] ${options.method || 'GET'} ${path} - Status: ${res.status}`, data.error);
     const err = new Error(data.error || "Request failed.");
     err.status = res.status;
     throw err;
   }
+  console.log(`✅ [API Success] ${options.method || 'GET'} ${path} - Status: ${res.status}`);
   return data;
 }
 

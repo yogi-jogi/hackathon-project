@@ -23,12 +23,17 @@ socketManager.init(server);
 const PORT = Number(process.env.PORT) || 5000;
 
 // ── Middleware ────────────────────────────────────────────────────────────────
+app.use((req, res, next) => {
+  console.log(`🌐 [Incoming Request] ${req.method} ${req.url} - Origin: ${req.headers.origin || 'None'}`);
+  next();
+});
 app.use(
   cors({
     origin: [
       "http://localhost:5173",
       "http://localhost:5174",
       "http://localhost:3000",
+      "https://hackathon-project-lemon-one.vercel.app"
     ],
     credentials: true,
   })
@@ -74,17 +79,17 @@ async function start() {
         tlsAllowInvalidCertificates: false,
         family: 4,
       });
-      console.log("[DB] Connected to MongoDB Atlas.");
+      console.log("🟢 [DB] Connected to MongoDB Atlas successfully.");
     } else {
-      console.warn("[DB] MONGODB_URI not set — data will not persist.");
+      console.warn("⚠️ [DB] MONGODB_URI not set — data will not persist.");
     }
 
     server.listen(PORT, () => {
-      console.log(`[Server] Running on http://localhost:${PORT}`);
+      console.log(`🚀 [Server] Running on http://localhost:${PORT}`);
       startLifecycleEngine();
     });
   } catch (err) {
-    console.error("[Server] Failed to start:", err.message);
+    console.error("❌ [Server] Failed to start:", err.message);
     process.exit(1);
   }
 }
