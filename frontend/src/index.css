@@ -1,0 +1,157 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #000000;
+  --color-bg-2: #050505;
+  --color-card: #0a0a0a;
+  --color-card-hover: #0c0c0c;
+  --color-overlay: #111111;
+
+  --color-border: rgba(255, 255, 255, 0.05);
+  --color-border-hover: rgba(255, 255, 255, 0.1);
+  
+  --color-text: #ffffff;
+  --color-text-2: #94a3b8;
+  --color-text-muted: #64748b;
+  --color-text-faint: #334155;
+
+  --color-accent: #6366f1;
+  --color-accent-dim: rgba(99, 102, 241, 0.12);
+  --color-accent-hover: #818cf8;
+
+  --color-success: #10b981;
+  --color-success-dim: rgba(16, 185, 129, 0.1);
+  
+  --color-warning: #f59e0b;
+  --color-warning-dim: rgba(245, 158, 11, 0.1);
+
+  --color-danger: #ef4444;
+  --color-danger-dim: rgba(239, 68, 68, 0.1);
+
+  --color-ghost: #8b5cf6;
+  --color-ghost-dim: rgba(139, 92, 246, 0.1);
+
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  --radius-xl: 16px;
+  --radius-2xl: 20px;
+}
+
+/* ── Fonts ──────────────────────────────────────────────────── */
+
+/* ── Base Layer ─────────────────────────────────────────────── */
+@layer base {
+  body {
+    @apply bg-bg text-text font-sans antialiased min-h-screen selection:bg-accent selection:text-white;
+  }
+}
+
+/* ── Components Layer ───────────────────────────────────────── */
+@layer components {
+
+  /* Layout */
+  .container {
+    @apply max-w-6xl mx-auto px-4 sm:px-6;
+  }
+
+  .page {
+    @apply py-10 pb-24 min-h-screen;
+  }
+
+  /* Typography */
+  .title-xl {
+    @apply text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-text leading-tight;
+  }
+
+  .title-lg {
+    @apply text-2xl sm:text-3xl font-bold tracking-tight text-text;
+  }
+
+  .title-md {
+    @apply text-xl font-semibold tracking-tight text-text;
+  }
+
+  /* Glass Card */
+  .glass-card {
+    @apply bg-white/[0.02] backdrop-blur-xl border border-white/[0.05] rounded-2xl shadow-[0_8px_32px_0_rgba(0,0,0,0.8)];
+  }
+  .glass-card-hover {
+    @apply transition-all duration-300 hover:bg-white/[0.04] hover:border-white/[0.1] hover:shadow-[0_12px_48px_0_rgba(0,0,0,0.9)] hover:-translate-y-1;
+  }
+
+  /* Form Elements */
+  .form-input {
+    @apply w-full px-4 py-3 bg-bg-2/50 border border-border rounded-xl text-sm text-text placeholder-text-faint focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/50 transition-all;
+  }
+
+  .form-label {
+    @apply block text-sm font-medium text-text-2 mb-2;
+  }
+
+  /* Buttons */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 active:scale-95 disabled:opacity-50 disabled:pointer-events-none whitespace-nowrap;
+  }
+
+  .btn-primary {
+    @apply bg-accent text-white font-semibold hover:bg-accent-hover shadow-[0_0_20px_rgba(99,102,241,0.25)] hover:shadow-[0_0_35px_rgba(99,102,241,0.45)];
+  }
+
+  .btn-secondary {
+    @apply bg-white/5 text-text border border-white/10 hover:bg-white/10 hover:border-white/20;
+  }
+
+  .btn-ghost {
+    @apply bg-transparent text-text-2 hover:text-text hover:bg-white/5;
+  }
+
+  .btn-danger {
+    @apply bg-danger/10 text-danger border border-danger/20 hover:bg-danger/20 hover:border-danger/40;
+  }
+
+  /* Badges */
+  .badge {
+    @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold uppercase tracking-wider border;
+  }
+
+  .badge-locked {
+    @apply bg-warning-dim text-warning border-warning/20;
+  }
+
+  .badge-unlocked {
+    @apply bg-success-dim text-success border-success/20;
+  }
+
+  .badge-expired {
+    @apply bg-white/5 text-text-muted border-white/10;
+  }
+
+  .badge-destroyed {
+    @apply bg-danger-dim text-danger border-danger/20;
+  }
+
+  .badge-timed {
+    @apply bg-accent-dim text-accent border-accent/20;
+  }
+
+  .badge-one-view {
+    @apply bg-warning-dim text-warning border-warning/20;
+  }
+
+  .badge-auto-expire {
+    @apply bg-ghost-dim text-ghost border-ghost/20;
+  }
+}
+
+/* ── Custom Animations ──────────────────────────────────────── */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner {
+  @apply w-5 h-5 border-2 border-border border-t-accent rounded-full animate-[spin_0.8s_linear_infinite];
+}
